@@ -11,19 +11,17 @@ def create_board(resolution):
 
 
 def print_board(board):
-    for i in range(len(board)):
-        for j in range(9):
-            board[i][j] = str(board[i][j])
-    for i in range(len(board)):
+    copy = [[str(x) for x in row] for row in board]
+    for i in range(len(copy)):
         if i % 3 == 0:
             print('-'*25)
         print(
             '| '
-            + ' '.join(board[i][:3])
+            + ' '.join(copy[i][:3])
             + ' | '
-            + ' '.join(board[i][3:6])
+            + ' '.join(copy[i][3:6])
             + ' | '
-            + ' '.join(board[i][6:])
+            + ' '.join(copy[i][6:])
             + ' |'
         )
     print('-'*25)
@@ -52,7 +50,7 @@ def solve_sudoku(board):
 def are_zeros(board):
     for i in range(len(board)):
         for j in range(9):
-            if board[i][j] == 0:
+            if str(board[i][j]) == '0':
                 return True
     return False
 
@@ -84,4 +82,5 @@ if __name__ == '__main__':
 
     sudoku_rows = create_board(board_resolution)
     print_board(sudoku_rows)
+    print('Solving...')
     solve_sudoku(sudoku_rows)
